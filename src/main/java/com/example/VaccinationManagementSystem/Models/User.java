@@ -2,7 +2,7 @@ package com.example.VaccinationManagementSystem.Models;
 
 import com.example.VaccinationManagementSystem.Enums.Gender;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,10 @@ import java.util.List;
 @Entity
 @Table(name="users")
 @Data
+//@Getter
+//@Setter
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +28,7 @@ public class User {
     private Gender  gender;
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
     private Dose dose;
-    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Appointment> appointmentList=new ArrayList<>();
 
 //    public Dose getDose() {
