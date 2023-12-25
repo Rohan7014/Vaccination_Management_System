@@ -3,6 +3,8 @@ package com.example.VaccinationManagementSystem.Controllers;
 import com.example.VaccinationManagementSystem.Dtos.RequestDtos.AppointmentRequestDtos;
 import com.example.VaccinationManagementSystem.Services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +16,12 @@ public class AppointmentController {
     @Autowired
     AppointmentService appointmentService;
     @PostMapping("/book")
-    public String addAppointment(@RequestBody AppointmentRequestDtos appointmentRequestDtos){
+    public ResponseEntity<String> addAppointment(@RequestBody AppointmentRequestDtos appointmentRequestDtos){
         try{
             String result =appointmentService.addAppointment(appointmentRequestDtos);
-            return result;
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
         }catch(Exception e){
-            return e.getMessage();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 }
